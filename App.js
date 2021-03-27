@@ -14,6 +14,7 @@ import RegisterScreen from './components/auth/Register';
 import LoginScreen from './components/auth/Login';
 import MainScreen from './components/Main';
 import AddScreen from './components/main/Add';
+import SaveScreen from './components/main/Save';
 
 import {
 	FIREBASE_API_KEY,
@@ -110,7 +111,12 @@ class App extends Component {
 							options={{headerShown: false}}/>
 						<Stack.Screen
 							name="Add"
-							component={AddScreen}/>
+							component={AddScreen}
+							navigation={this.props.navigation}/>
+						<Stack.Screen
+							name="Save"
+							component={SaveScreen}
+							navigation={this.props.navigation}/>
 					</Stack.Navigator>
 				</NavigationContainer>
 			</Provider>
