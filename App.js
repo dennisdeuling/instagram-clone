@@ -107,8 +107,7 @@ class App extends Component {
 						initalRouteName="Main">
 						<Stack.Screen
 							name="Main"
-							component={MainScreen}
-							options={{headerShown: false}}/>
+							component={MainScreen}/>
 						<Stack.Screen
 							name="Add"
 							component={AddScreen}
