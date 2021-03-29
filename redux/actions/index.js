@@ -1,4 +1,5 @@
 import {
+	CLEAR_DATA,
 	USER_FOLLOWING_STATE_CHANGE,
 	USER_POSTS_STATE_CHANGE,
 	USER_STATE_CHANGE,
@@ -7,6 +8,12 @@ import {
 import firebase from 'firebase';
 
 require('firebase/firestore');
+
+function clearData() {
+	return (dispatch => {
+		dispatch({type: CLEAR_DATA});
+	});
+}
 
 function fetchUser() {
 	return (dispatch => {
@@ -66,13 +73,13 @@ function fetchUserFollowing() {
 				});
 
 				for (let i = 0; i < following.length; i++) {
-					dispatch(fetchUsersData(following[i]));
+					dispatch(fetchUsersData(following[i], true));
 				}
 			});
 	});
 };
 
-function fetchUsersData(uid) {
+function fetchUsersData(uid, getPosts) {
 	return ((dispatch, getState) => {
 		const found = getState().usersState.users
 			.some(user => user.uid === uid);
@@ -91,11 +98,14 @@ function fetchUsersData(uid) {
 							type: USERS_DATA_STATE_CHANGE,
 							user
 						});
-						dispatch(fetchUsersFollowingPosts(user.id));
 					} else {
 						console.log('Snapshot doesnt exists');
 					}
 				});
+
+			if (getPosts) {
+				dispatch(fetchUsersFollowingPosts(uid));
+			}
 
 		}
 	});
@@ -129,4 +139,11 @@ function fetchUsersFollowingPosts(uid) {
 };
 
 
-export {fetchUser, fetchUserPosts, fetchUserFollowing, fetchUsersData, fetchUsersFollowingPosts};
+export {
+	fetchUser,
+	fetchUserPosts,
+	fetchUserFollowing,
+	fetchUsersData,
+	fetchUsersFollowingPosts,
+	clearData
+};

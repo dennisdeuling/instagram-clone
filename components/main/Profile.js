@@ -107,6 +107,12 @@ function Profile(props) {
 						<View style={styles.containerImage}>
 							<Image style={styles.image}
 								   source={{uri: item.downloadURL}}/>
+							<Text
+								onPress={() => props.navigation.navigate('Comment',
+									{
+										postId: item.id,
+										uid: item.user.uid
+									})}>View comments...</Text>
 						</View>
 					)}/>
 			</View>

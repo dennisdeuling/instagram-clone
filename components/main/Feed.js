@@ -12,7 +12,7 @@ function Feed(props) {
 
 	useEffect(() => {
 		let posts = [];
-		if (props.usersLoaded === props.following.length) {
+		if (props.usersFollowingLoaded === props.following.length) {
 			for (let i = 0; i < props.following.length; i++) {
 				const user = props.users.find(user => user.uid === props.following[i]);
 				if (user !== undefinded) {
@@ -25,7 +25,7 @@ function Feed(props) {
 			setPosts(posts);
 		}
 
-	}, [props.usersLoaded]);
+	}, [props.usersFollowingLoaded]);
 
 	return (
 		<View style={styles.containerGallery}>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = store => ({
 	currentUser: store.userState.currentUser,
 	users: store.userState.users,
-	usersLoaded: store.userState.usersLoaded
+	usersFollowingLoaded: store.userState.usersFollowingLoaded
 });
 
 export default connect(mapStateToProps, null)(Feed);
